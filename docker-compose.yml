@@ -1,0 +1,51 @@
+# dev mode
+services:
+  healthcare-rbac:
+    build:
+      context: .
+      target: development
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/usr/src/app
+      - ignore:/usr/src/app/node_modules
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=turbovets
+      - DB_PASSWORD=abacus123
+      - DB_NAME=turbovets
+    networks:
+      - rbac-network
+
+  postgres:
+    image: postgres:latest
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: turbovets
+      POSTGRES_PASSWORD: abacus123
+      POSTGRES_DB_PORT: 5432
+      POSTGRES_DB: turbovets
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -d turbovets -U turbovets']
+      interval: 1s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - rbac-network
+
+volumes:
+  ignore:
+  postgres-data:
+
+networks:
+  rbac-network:
+    driver: bridge
