@@ -19,6 +19,7 @@ services:
       - DB_USERNAME=turbovets
       - DB_PASSWORD=abacus123
       - DB_NAME=turbovets
+      - JWT_SECRET=asdkjahdjahsdic
     networks:
       - rbac-network
 
@@ -39,6 +40,7 @@ services:
       retries: 10
     volumes:
       - postgres-data:/var/lib/postgresql/data
+      - ./migrations/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
     networks:
       - rbac-network
 
