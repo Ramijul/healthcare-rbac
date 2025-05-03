@@ -1,41 +1,22 @@
-import { ActionType, ResourceType, UserRole } from './roles.constants';
+import { UserRoles, ResourceTypes, ActionTypes } from './roles.constants';
+import { ActionType, ResourceType, UserRole } from './roles.types';
 
-export type Permission = {
-  resource: ResourceType;
-  actions: ActionType[];
-};
+// export type Permission = {
+//   resource: ResourceType;
+//   actions: ActionType[];
+// };
 
-export type RoleConfig = Record<
-  UserRole,
-  { inherits: UserRole | null; permissions: Permission[] }
->;
+export type RoleConfig = Record<UserRole, { inherits: UserRole | null }>;
 
+// apply role inheritance
 export const ROLE_CONFIG: RoleConfig = {
-  [UserRole.OWNER]: {
-    inherits: UserRole.ADMIN,
-    permissions: [
-      {
-        resource: ResourceType.PATIENT_RECORD,
-        actions: [ActionType.DELETE],
-      },
-    ],
+  [UserRoles.OWNER]: {
+    inherits: UserRoles.ADMIN,
   },
-  [UserRole.ADMIN]: {
-    inherits: UserRole.VIEWER,
-    permissions: [
-      {
-        resource: ResourceType.PATIENT_RECORD,
-        actions: [ActionType.EDIT, ActionType.CREATE],
-      },
-    ],
+  [UserRoles.ADMIN]: {
+    inherits: UserRoles.VIEWER,
   },
-  [UserRole.VIEWER]: {
+  [UserRoles.VIEWER]: {
     inherits: null,
-    permissions: [
-      {
-        resource: ResourceType.PATIENT_RECORD,
-        actions: [ActionType.VIEW],
-      },
-    ],
   },
 };

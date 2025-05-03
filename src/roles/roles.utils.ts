@@ -1,27 +1,35 @@
-import { ActionType, ResourceType, UserRole } from './roles.constants';
-import { Permission, ROLE_CONFIG } from './roles.permissions';
+import { ROLE_CONFIG } from './roles.permissions';
+import { UserRole } from './roles.types';
 
-export function getAllPermissions(role: UserRole): Permission[] {
-  const permissions: Permission[] = [];
+/**
+ * Get all roles the user has inheritted along with the assigned role
+ *
+ * @param role
+ * @returns
+ */
+export function getAllAssignableRoles(role: UserRole): UserRole[] {
+  const roles: UserRole[] = [role];
   let currentRole: UserRole | null = role;
 
   while (currentRole) {
-    permissions.push(...ROLE_CONFIG[currentRole].permissions);
+    const inherittedRole = ROLE_CONFIG[currentRole].inherits;
+    if (inherittedRole) roles.push(inherittedRole);
+
     currentRole = ROLE_CONFIG[currentRole].inherits;
   }
 
-  return permissions;
+  return roles;
 }
 
-export function hasPermission(
-  userRole: UserRole,
-  required: { resource: ResourceType; action: ActionType },
-): boolean {
-  const userPermissions = getAllPermissions(userRole);
+/**
+ * Check if the user inherently has the required role
+ *
+ * @param userRole
+ * @param required
+ * @returns
+ */
+export function hasPermission(userRole: UserRole, required: UserRole): boolean {
+  const assignedRoles = getAllAssignableRoles(userRole);
 
-  return userPermissions.some(
-    (perm) =>
-      perm.resource === required.resource &&
-      perm.actions.includes(required.action),
-  );
+  return assignedRoles.includes(required);
 }
