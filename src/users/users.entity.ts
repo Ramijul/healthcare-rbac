@@ -1,10 +1,10 @@
-import { UserRole } from 'src/roles/roles.constants';
+import { UserRole } from 'src/roles/roles.types';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn('increment')
+  id: number;
 
   @Column({ unique: true })
   username: string;
