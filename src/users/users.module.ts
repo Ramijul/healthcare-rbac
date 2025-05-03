@@ -6,6 +6,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UsersController } from './users.controller';
 import { UsersRepository } from './users.repository';
 import { UsersService } from './users.service';
+import { AuthController } from './auth/auth.controller';
+import { AuthService } from './auth/auth.service';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthGuard } from './auth/guards/auth.guard';
 
 @Module({
   imports: [
@@ -20,8 +24,16 @@ import { UsersService } from './users.service';
       }),
     }),
   ],
-  controllers: [UsersController],
-  providers: [UsersService, UsersRepository],
+  controllers: [UsersController, AuthController],
+  providers: [
+    UsersService,
+    UsersRepository,
+    AuthService,
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard, // enable app-wide auth guard
+    },
+  ],
   exports: [UsersService],
 })
 export class UsersModule {}

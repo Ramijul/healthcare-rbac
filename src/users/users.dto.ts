@@ -2,18 +2,13 @@ import { getOrg } from 'src/organizations/organizations.utils';
 import { User } from './users.entity';
 import { Organization } from 'src/organizations/organizations.constants';
 
-export class LoginDto {
-  username: string;
-  password: string;
-}
-
 export interface OrganizationResponseDto {
   id: string;
   name: string;
 }
 
 export class UserResponseDto {
-  id: string;
+  id: number;
   username: string;
   role: string;
   org: OrganizationResponseDto;
