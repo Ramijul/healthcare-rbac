@@ -16,7 +16,7 @@ import { EntityClassOrSchema } from '@nestjs/typeorm/dist/interfaces/entity-clas
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
         entities: ['dist/**/*.entity{.ts,.js}'],
-        synchronize: true,
+        synchronize: false,
         migrations: ['dist/migrations/*{.ts,.js}'],
       }),
       inject: [ConfigService],
