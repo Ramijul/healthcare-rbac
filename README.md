@@ -68,7 +68,7 @@ _This will initiate a Postgres service with `turbovets` database initialized wit
 $ yarn test
 ```
 
-15 tests cases have been added to test access control logic, whcih includes testing the AuthGuard and the Patient Records controller.
+14 test cases have been added to test access control logic, whcih includes testing the AuthGuard and the Patient Records controller.
 
 # API Documentation
 
