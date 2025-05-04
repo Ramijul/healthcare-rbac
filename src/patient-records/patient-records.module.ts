@@ -4,7 +4,6 @@ import { PatientRecord } from './patient-records.entity';
 import { PatientRecordsController } from './patient-records.controller';
 import { PatientRecordsService } from './patient-records.service';
 import { PatientRecordsRepository } from './patient-records.reporsitory';
-import { UsersService } from 'src/users/users.service';
 import { UsersModule } from 'src/users/users.module';
 
 @Module({

@@ -6,8 +6,6 @@ import {
   Post,
   Body,
   Patch,
-  Delete,
-  UnauthorizedException,
   ForbiddenException,
 } from '@nestjs/common';
 import { PatientRecordsService } from './patient-records.service';
