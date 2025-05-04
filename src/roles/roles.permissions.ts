@@ -1,12 +1,5 @@
-import { UserRoles, ResourceTypes, ActionTypes } from './roles.constants';
-import { ActionType, ResourceType, UserRole } from './roles.types';
-
-// export type Permission = {
-//   resource: ResourceType;
-//   actions: ActionType[];
-// };
-
-export type RoleConfig = Record<UserRole, { inherits: UserRole | null }>;
+import { UserRoles } from './roles.constants';
+import { RoleConfig } from './roles.types';
 
 // apply role inheritance
 export const ROLE_CONFIG: RoleConfig = {
