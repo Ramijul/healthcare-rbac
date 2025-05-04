@@ -72,7 +72,7 @@ export class PatientRecordsController {
       userIdentity.userId,
     )) as User;
 
-    const record = this.service.findOne(id, userIdentity.orgs);
+    const record = await this.service.findOne(id, userIdentity.orgs);
 
     if (!record) {
       throw new ForbiddenException();
