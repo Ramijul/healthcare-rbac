@@ -18,7 +18,6 @@ export class PatientRecordsService {
   async create(data: Partial<PatientRecord>, user: User) {
     return this.repository.createRecord({
       ...data,
-      organizationId: data.organizationId || user.organizationId,
       createdAt: new Date(),
       updatedAt: new Date(),
       createdBy: user,

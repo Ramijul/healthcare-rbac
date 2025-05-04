@@ -49,10 +49,10 @@ export class PatientRecordsController {
       userIdentity.userId,
     )) as User;
 
-    //explicit org check is needed when creating resource
+    //explicit org check is needed when creating new resource
     if (
-      Object.keys(data).includes('organizationId') &&
-      !userIdentity.orgs.includes(data['organizationId'])
+      !data.organizationId ||
+      !userIdentity.orgs.includes(data.organizationId)
     ) {
       throw new ForbiddenException();
     }
